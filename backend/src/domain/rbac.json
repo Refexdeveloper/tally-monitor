@@ -1,0 +1,87 @@
+{
+  "permissions": [
+    { "code": "dashboard.view", "module": "dashboard", "description": "View dashboards and integration health" },
+    { "code": "applications.view", "module": "applications", "description": "View source applications" },
+    { "code": "applications.manage", "module": "applications", "description": "Create, edit and deactivate source applications" },
+    { "code": "companies.view", "module": "companies", "description": "View group companies" },
+    { "code": "companies.manage", "module": "companies", "description": "Create and edit group companies" },
+    { "code": "expenses.view", "module": "expenses", "description": "View expense transactions" },
+    { "code": "expenses.edit", "module": "expenses", "description": "Correct normalized expense data before posting" },
+    { "code": "jobs.view", "module": "jobs", "description": "View processing queue" },
+    { "code": "jobs.manage", "module": "jobs", "description": "Revalidate, retry, pause, resume and cancel jobs" },
+    { "code": "jobs.approve", "module": "jobs", "description": "Approve or reject jobs for posting" },
+    { "code": "ledgers.view", "module": "ledgers", "description": "View ledgers and mappings" },
+    { "code": "ledgers.manage", "module": "ledgers", "description": "Maintain ledger mappings" },
+    { "code": "masters.request", "module": "ledgers", "description": "Raise master creation requests" },
+    { "code": "masters.approve", "module": "ledgers", "description": "Approve master creation in Tally" },
+    { "code": "vouchers.view", "module": "vouchers", "description": "View voucher configurations and posted vouchers" },
+    { "code": "vouchers.manage", "module": "vouchers", "description": "Maintain voucher configurations" },
+    { "code": "vouchers.post", "module": "vouchers", "description": "Authorize voucher posting" },
+    { "code": "tally.view", "module": "tally", "description": "View Tally connections" },
+    { "code": "tally.manage", "module": "tally", "description": "Configure Tally connections and run tests" },
+    { "code": "agents.manage", "module": "tally", "description": "Register and revoke Tally Bridge Agents" },
+    { "code": "reports.view", "module": "reports", "description": "View reports" },
+    { "code": "reports.export", "module": "reports", "description": "Export reports" },
+    { "code": "audit.view", "module": "audit", "description": "View audit logs" },
+    { "code": "users.view", "module": "users", "description": "View users and roles" },
+    { "code": "users.manage", "module": "users", "description": "Manage users, roles and company access" },
+    { "code": "settings.view", "module": "settings", "description": "View integration settings" },
+    { "code": "settings.manage", "module": "settings", "description": "Change integration settings" }
+  ],
+  "roles": [
+    {
+      "code": "SUPER_ADMIN",
+      "name": "Super Admin",
+      "description": "Full access to every module and company",
+      "permissions": ["*"]
+    },
+    {
+      "code": "ADMIN",
+      "name": "Admin",
+      "description": "Manages applications, companies and users",
+      "permissions": [
+        "dashboard.view", "applications.view", "applications.manage", "companies.view", "companies.manage",
+        "expenses.view", "jobs.view", "ledgers.view", "vouchers.view", "tally.view", "reports.view",
+        "reports.export", "audit.view", "users.view", "users.manage", "settings.view"
+      ]
+    },
+    {
+      "code": "FINANCE_MANAGER",
+      "name": "Finance Manager",
+      "description": "Reviews expenses, mappings and jobs",
+      "permissions": [
+        "dashboard.view", "applications.view", "companies.view", "expenses.view", "expenses.edit", "jobs.view",
+        "jobs.manage", "ledgers.view", "ledgers.manage", "masters.request", "vouchers.view", "vouchers.manage",
+        "reports.view", "reports.export", "audit.view"
+      ]
+    },
+    {
+      "code": "FINANCE_APPROVER",
+      "name": "Finance Approver",
+      "description": "Approves accounting master creation and posting requests",
+      "permissions": [
+        "dashboard.view", "applications.view", "companies.view", "expenses.view", "jobs.view", "jobs.approve",
+        "ledgers.view", "masters.approve", "vouchers.view", "vouchers.post", "reports.view", "reports.export"
+      ]
+    },
+    {
+      "code": "INTEGRATION_MANAGER",
+      "name": "Integration Manager",
+      "description": "Manages integrations and troubleshoots jobs",
+      "permissions": [
+        "dashboard.view", "applications.view", "applications.manage", "companies.view", "expenses.view", "jobs.view",
+        "jobs.manage", "ledgers.view", "vouchers.view", "tally.view", "tally.manage", "agents.manage",
+        "reports.view", "audit.view", "settings.view"
+      ]
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer",
+      "description": "Read-only dashboard access",
+      "permissions": [
+        "dashboard.view", "applications.view", "companies.view", "expenses.view", "jobs.view", "ledgers.view",
+        "vouchers.view", "tally.view", "reports.view"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "tally-monitor-bridge-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tally Monitor Bridge Agent: secure outbound link between Tally Monitor (cloud) and TallyPrime on the internal network",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "diagnose": "node src/cli.js diagnose",
+    "companies": "node src/cli.js companies",
+    "ledgers": "node src/cli.js ledgers",
+    "find-voucher": "node src/cli.js find-voucher",
+    "fake-tally": "node test/fakeTally.js",
+    "test": "node --test test/xml.test.js test/postVoucher.test.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.2.0"
+  }
+}
