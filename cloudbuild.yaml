@@ -1,0 +1,42 @@
+substitutions:
+  _REGION: asia-south1
+  _SERVICE: tally-monitor
+  _SQL_INSTANCE: master-diorama-489103-u2:asia-south1:tally-monitor
+  _APP_PUBLIC_URL: https://replace-after-first-deploy.run.app
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        "build",
+        "-t",
+        "asia-south1-docker.pkg.dev/$PROJECT_ID/tally-monitor/tally-monitor:$SHORT_SHA",
+        ".",
+      ]
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      [
+        "push",
+        "asia-south1-docker.pkg.dev/$PROJECT_ID/tally-monitor/tally-monitor:$SHORT_SHA",
+      ]
+
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE}
+      - --image=asia-south1-docker.pkg.dev/$PROJECT_ID/tally-monitor/tally-monitor:$SHORT_SHA
+      - --region=${_REGION}
+      - --platform=managed
+      - --service-account=tally-monitor-run@$PROJECT_ID.iam.gserviceaccount.com
+      - --allow-unauthenticated
+      - --port=8080
+      - --memory=1Gi
+      - --cpu=1
+      - --min-instances=1
+      - --no-cpu-throttling
+      - --add-cloudsql-instances=${_SQL_INSTANCE}
+      - --set-env-vars=NODE_ENV=production,TRUST_PROXY=1,LOG_LEVEL=info,DB_NAME=tally_monitor,DB_USER=tally_monitor,DB_SOCKET_PATH=/cloudsql/${_SQL_INSTANCE},APP_PUBLIC_URL=${_APP_PUBLIC_URL},CORS_ORIGINS=${_APP_PUBLIC_URL},QUEUE_WORKER_ENABLED=true
+      - --set-secrets=DB_PASSWORD=tally-db-password:latest,JWT_ACCESS_SECRET=tally-jwt-access-secret:latest,ENCRYPTION_KEY=tally-encryption-key:latest
