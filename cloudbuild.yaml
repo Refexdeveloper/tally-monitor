@@ -2,7 +2,7 @@ substitutions:
   _REGION: asia-south1
   _SERVICE: tally-monitor
   _SQL_INSTANCE: master-diorama-489103-u2:asia-south1:tally-monitor
-  _APP_PUBLIC_URL: https://replace-after-first-deploy.run.app
+  _APP_PUBLIC_URL: https://tally-monitor-645830234926.asia-south1.run.app
 
 steps:
   - name: gcr.io/cloud-builders/docker
