@@ -14,7 +14,7 @@ async function main() {
   }
 
   const server = createApp().listen(env.PORT, () => {
-    logger.info(`Tally Monitor API listening on :${env.PORT}`, { env: env.NODE_ENV });
+    logger.info(`Tally Monitor listening on http://localhost:${env.PORT}`, { env: env.NODE_ENV });
     startQueueWorker();
   });
 

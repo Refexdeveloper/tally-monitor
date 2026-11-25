@@ -12,12 +12,12 @@ const bool = z
 const schema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(4000),
-  APP_PUBLIC_URL: z.string().url().default('http://localhost:5173'),
+  APP_PUBLIC_URL: z.string().url().default('http://localhost:4000'),
   /** Public base URL of this API; used to show webhook URLs. Defaults to APP_PUBLIC_URL (same-origin /api). */
   PUBLIC_API_URL: z.string().url().optional(),
   /** Host suffixes the API may call when testing Kissflow API connections (SSRF guard). */
   KISSFLOW_ALLOWED_HOSTS: z.string().default('kissflow.com'),
-  CORS_ORIGINS: z.string().default('http://localhost:5173'),
+  CORS_ORIGINS: z.string().default('http://localhost:4000'),
   TRUST_PROXY: z.coerce.number().int().min(0).default(0),
   LOG_LEVEL: z.enum(['error', 'warn', 'info', 'http', 'verbose', 'debug']).default('info'),
 

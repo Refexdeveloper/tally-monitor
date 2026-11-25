@@ -2,9 +2,13 @@
   "name": "@tally-monitor/backend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.19"
+  },
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/server.ts",
+    "build:ui": "node scripts/build-frontend.js",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/server.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",

@@ -17,8 +17,8 @@ AI-powered multi-company expense integration and TallyPrime management platform.
 
 ```
 tally-monitor/
-  backend/    Express 5 + Sequelize + MySQL 8 API (TypeScript)
-  frontend/   React 19 + Vite + MUI 9 web app (TypeScript)
+  backend/    Express 5 + Sequelize + MySQL 8. Serves the built web app.
+  frontend/   React 19 + Vite + MUI 9. Built into backend/public.
   docs/       architecture, API and phase documentation
 ```
 
@@ -29,10 +29,10 @@ tally-monitor/
 
 ## Setup (Windows PowerShell)
 
-### 1. Install dependencies
+### 1. Install backend dependencies
 
 ```powershell
-cd D:\Tally\tally-monitor
+cd D:\RefexGroupApps\tally-monitor\backend
 npm install
 ```
 
@@ -63,27 +63,37 @@ Edit `backend/.env` and set `DB_USER`, `DB_PASSWORD`, `JWT_ACCESS_SECRET`, `ENCR
 
 ### 4. Create the schema and seed
 
+Run these from the `backend` folder:
+
 ```powershell
 npm run db:setup        # db:create + db:migrate + db:seed (roles, permissions, admin, settings)
 npm run db:seed:demo    # optional, development only: realistic fictional demo data
 ```
 
-### 5. Run
+### 5. Build the web app into the backend, then run the backend
 
 ```powershell
+cd D:\RefexGroupApps\tally-monitor\backend
+npm run build:ui
 npm run dev
 ```
 
-- Web: http://localhost:5173 (proxies `/api` to the API)
+`build:ui` installs frontend dependencies if they are missing, builds `frontend`, and copies the result to `backend/public`. The backend serves that folder, so only one process is required.
+
+- App: http://localhost:4000
 - API: http://localhost:4000/api/v1/health
 
 ## Scripts
 
+Run these from `backend/`:
+
 | Command | Description |
 |---|---|
-| `npm run dev` | API (tsx watch) + web (Vite) together |
-| `npm run build` | Production builds of both workspaces |
-| `npm run typecheck` | TypeScript checks for both workspaces |
+| `npm run build:ui` | Build the frontend and copy it to `backend/public` |
+| `npm run dev` | Backend with reload. Serves `backend/public` |
+| `npm run build` | Compile the backend TypeScript |
+| `npm start` | Run the compiled backend |
+| `npm run typecheck` | Backend TypeScript check |
 | `npm test` | Backend unit tests (vitest) |
 | `npm run db:migrate` | Apply pending migrations |
 | `npm run db:seed` | Seed/refresh roles, permissions, admin and default settings (idempotent) |
